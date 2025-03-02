@@ -1,41 +1,84 @@
-# C Shell Code
-this c code present here contains code of the working shell
+# Advanced C Shell
 
-## Assumptions
-1. Assumed the max size of any arguments is having a max value of 4039
-2. max number of backgroud process possible are also 4039
-3. the shell will have the home directory as the working directory of the shell program which mean the path is relative to the working directory but when the path is given out of the working directory then it will show the absolute path
+## Overview
+The Advanced C Shell is a custom Unix-like shell implemented in C, providing a command-line interface for users to execute commands, manage processes, and perform input/output redirection and piping. It mimics features of traditional shells with added enhancements for improved usability.
 
-the shell code have the following functions like
-### hop 
-* like cd command in linux
-* structure is hop < path/./../-/~>
+## Features
+- Command execution (foreground and background)
+- Built-in commands (e.g., `cd`, `exit`, `jobs`, `fg`, `bg`)
+- Input/output redirection (`>`, `>>`, `<`)
+- Pipelining (`|` support for multiple commands)
+- Signal handling (Ctrl+C, Ctrl+Z, and custom signal processing)
+- Job control and process management
+- Configuration file (`myshrc`) support for startup customization
 
-### reveal 
-* like the ls command in linux
-* structure is reveal < flag> < path/./..>
+## Installation
 
-### log 
-* this is a history function this have the function like 
-1. log - shows the history
-2. log execute n- execute the nth lastest command
-3. log purge - clear the history
-* structure is log / log execute n / log purge
-### proclore 
-* this will print the detail of the process with given process id
-* structure is proclore < pid >
-* path absolute
+### Prerequisites
+Ensure you have the following installed on your system:
+- GCC (GNU Compiler Collection)
+- Linux environment (recommended for execution and testing)
 
-### seek 
-* search for the given file in the target directory
-* structure is seek < flags > < filename > < target directory>
+### Setup
+1. Clone this repository:
+   ```sh
+   git clone <repository-url>
+   cd Advanced-C-Shell-main
+   ```
+2. Compile the shell:
+   ```sh
+   make
+   ```
+3. Run the shell:
+   ```sh
+   ./mysh
+   ```
 
-the shell will also execute some of the other commands of linux shell command as execvp system call is used
-shell will also execute the background process which are having & symbol at the end of the command
+## Usage
+- Run shell commands normally:
+  ```sh
+  ls -l
+  ```
+- Execute background processes using `&`:
+  ```sh
+  ./script.sh &
+  ```
+- Redirect output/input:
+  ```sh
+  cat file.txt > output.txt
+  sort < input.txt
+  ```
+- Use pipes for command chaining:
+  ```sh
+  ls -l | grep "txt" | wc -l
+  ```
+- Manage jobs:
+  ```sh
+  jobs        # List background jobs
+  fg %1       # Bring job 1 to the foreground
+  bg %2       # Resume job 2 in the background
+  ```
+- Exit the shell:
+  ```sh
+  exit
+  ```
 
+## File Structure
+```
+Advanced-C-Shell-main/
+│── src/
+│   ├── main.c               # Entry point of the shell
+│   ├── commands.c           # Built-in command handling
+│   ├── process.c            # Process and job control
+│   ├── signals.c            # Signal handling functions
+│── include/
+│   ├── shell.h              # Header files
+│── myshrc                   # Startup configuration file
+│── Makefile                 # Compilation script
+│── README.md                # Documentation
+```
 
-## Assumptions for part - B
-* commands like echo will work in the format echo < word > for example if we enter echo hello world, it will print hello world
-*  my fg command will work only for the process created by my shell
-* i had used alias keyword in the spec 9
-* 
+## Acknowledgments
+- Inspired by Unix shells like Bash and Zsh
+- Referenced Linux man pages and online shell programming resources
+
